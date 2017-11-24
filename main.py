@@ -6,7 +6,7 @@
 
 # Libs do Python
 
-import random, os
+import random, os, time
 
 #======================== VARIAVEIS GLOBAIS
 
@@ -32,19 +32,19 @@ def cabecalho():
 
 def placar():
 	print("|                       PLACAR                        |")
-	print("|     ( O ) => 3                      3 <= ( X )      |")
-	print("|     EMPATES => 2                                    |")
+	print("|     ( O ) => "+str(O)+"                      "+str(X)+" <= ( X )      |")
+	print("|     EMPATES => "+str(em)+"                                    |")
 	print("|=====================================================|")
-	print("|                    Jogando =>  X                    |")	 
+	print("|                    Jogando =>  "+str(jogando)+"                    |")	 
 	print("|=====================================================|")	 
 
 def velha():
 	print("|                 +-----+-----+-----+                 |")
-	print("|                 |  1  |  2  |  3  |                 |")
+	print("|                 |  "+str(V[0][0])+"  |  "+str(V[0][1])+"  |  "+str(V[0][2])+"  |                 |")
 	print("|                 +-----+-----+-----+                 |")
-	print("|                 |  4  |  5  |  6  |                 |")
+	print("|                 |  "+str(V[1][0])+"  |  "+str(V[1][1])+"  |  "+str(V[1][2])+"  |                 |")
 	print("|                 +-----+-----+-----+                 |")
-	print("|                 |  7  |  8  |  9  |                 |")
+	print("|                 |  "+str(V[2][0])+"  |  "+str(V[2][1])+"  |  "+str(V[2][2])+"  |                 |")
 	print("|                 +-----+-----+-----+                 |")
 	print("|-----------------------------------------------------|")
 
@@ -77,9 +77,48 @@ def questao(msg, erro="Digite S para sim e N para não"):
 		except:
 			print("Sertifique-se de que digitou um valor aceite!")
 
-eval(limpa)
+# =======================================================================
 
-print(jogador())
-print(jogou('Joga na pusicao: '))
-print(questao("Quer jogar mais? "))
+Inicio = True
+
+while Inicio:
+
+	jogando = jogador()
+	GameOn  = True 
+
+	while GameOn:
+
+		# Cabecalho
+
+		eval(limpa); cabecalho(); placar(); velha()
+
+		jogada = jogou("| Jogue o número da posição que deseja: ")
+
+		# Validacao
+
+		jogadaAceite = False 
+
+		for i in range(3):
+			for j in range(3):
+				if jogada == V[i][j]:
+					V[i][j] = jogando 
+					jogadaAceite = True
+
+		if jogadaAceite:
+
+			# Verificar se jogo foi ganho ou empate
+
+			if False:
+				pass
+			else:
+				jogando = 'X' if jogando == 'O' else 'O'
+		else:
+			print("| Jogada invalida!... Tente outra vez.")
+			time.sleep(3)
+
+		if not questao("continua? "):
+
+
+			GameOn = False 
+			Inicio = False
 
