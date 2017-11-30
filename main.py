@@ -77,6 +77,17 @@ def questao(msg, erro="Digite S para sim e N para não"):
 		except:
 			print("Sertifique-se de que digitou um valor aceite!")
 
+# ========================== FUNCOES PRINCIPAIS =========================
+
+def jogoEmpatado():
+
+	for i in range(3):
+		for j in range(3):
+			if str(V[i][j]).isdigit():
+				return False 
+
+	return True
+
 # =======================================================================
 
 Inicio = True
@@ -108,8 +119,12 @@ while Inicio:
 
 			# Verificar se jogo foi ganho ou empate
 
-			if False:
-				pass
+			if jogoEmpatado():
+				print("| Jogo empatado!... ")
+				time.sleep(3)
+				em += 1
+				GameOn = False
+				Inicio = True if questao("| Deseja continuar jogando? [N/S]: ") else False
 			else:
 				jogando = 'X' if jogando == 'O' else 'O'
 		else:
